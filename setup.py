@@ -1,7 +1,7 @@
 #-*- coding: ISO-8859-1 -*-
 # setup.py: the distutils script
 #
-# Copyright (C) 2004-2015 Gerhard Häring <gh@ghaering.de>
+# Copyright (C) 2004-2015 Gerhard HÃ¤ring <gh@ghaering.de>
 #
 # This file is part of pysqlite.
 #
@@ -35,9 +35,9 @@ import os
 import re
 import shutil
 
-from distutils.core import setup, Extension, Command
-from distutils.command.build import build
-from distutils.command.build_ext import build_ext
+from setuptools import setup, Extension, Command
+from setuptools.command.build_py import build_py
+from setuptools.command.build_ext import build_ext
 
 import cross_bdist_wininst
 
@@ -63,7 +63,6 @@ define_macros = []
 
 long_description = \
 """Python interface to SQLite 3
-
 pysqlite is an interface to the SQLite 3.x embedded relational database engine.
 It is almost fully compliant with the Python database API version 2.0 also
 exposes the unique features of SQLite."""
@@ -111,27 +110,29 @@ class DocBuilder(Command):
         if rc != 0:
             sys.stdout.write("Is sphinx installed? If not, try 'sudo pip sphinx'.\n")
 
-class AmalgamationBuilder(build):
+class AmalgamationBuilder(build_py):
     description = "Build a statically built pysqlite using the amalgamtion."
 
     def __init__(self, *args, **kwargs):
         MyBuildExt.amalgamation = True
-        build.__init__(self, *args, **kwargs)
+        build_py.__init__(self, *args, **kwargs)
 
 class MyBuildExt(build_ext):
-    amalgamation = False
+    amalgamation = True
 
     def _pkgconfig(self, flag, package):
         status, output = commands.getstatusoutput("pkg-config %s %s" % (flag, package))
+        if status == 1:
+            raise OSError()
         return output
 
     def _pkgconfig_include_dirs(self, package):
-        return [x.strip() for x in 
+        return [x.strip() for x in
                 self._pkgconfig("--cflags-only-I",
                                 package).replace("-I", " ").split()]
 
     def _pkgconfig_library_dirs(self, package):
-        return [x.strip() for x in 
+        return [x.strip() for x in
                 self._pkgconfig("--libs-only-L",
                                 package).replace("-L", " ").split()]
 
@@ -199,7 +200,7 @@ def get_setup_args():
             packages = ["pysqlite2", "pysqlite2.test"],
             scripts=[],
             data_files = data_files,
-
+            zip_safe=False,
             ext_modules = [Extension( name="pysqlite2._sqlite",
                                       sources=sources,
                                       include_dirs=include_dirs,

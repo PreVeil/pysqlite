@@ -1,10 +1,8 @@
+pysqlite.egg-info
+**/.DS_STORE
 *~
 *.pyc
 *.swp
 build
 MANIFEST
 dist
-sqlite3.c
-sqlite3.h
-sqlite3ext.h
-shell.c
