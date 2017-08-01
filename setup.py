@@ -54,7 +54,7 @@ sources = ["src/module.c", "src/connection.c", "src/cursor.c", "src/cache.c",
 if PYSQLITE_EXPERIMENTAL:
     sources.append("src/backup.c")
 
-include_dirs = []
+include_dirs = ["."]
 library_dirs = []
 libraries = []
 runtime_library_dirs = []

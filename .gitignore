@@ -6,3 +6,9 @@ pysqlite.egg-info
 build
 MANIFEST
 dist
+./sqlite3.h
+./slqite3.c
+./shell.c
+./sqlite3ext.h
+./sqlite3.lib
+./sqlite3.obj
