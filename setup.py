@@ -140,6 +140,7 @@ class MyBuildExt(build_ext):
     def build_extension(self, ext):
         if self.amalgamation:
             ext.define_macros += [
+                    ("SQLITE_ENABLE_FTS5", "1"),
                     ("SQLITE_ENABLE_FTS3", "1"),
                     ("SQLITE_ENABLE_FTS3_PARENTHESIS", "1"),
                     ("SQLITE_ENABLE_FTS4", "1"),
