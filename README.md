@@ -22,7 +22,7 @@ We should make platform specific wheel packages (`.whl`) for each of the support
 
 5. ​
 
-   ### OSX
+   ### OSX/Linux
 
    1. make build wheel with : `python setup.py bdist_wheel`, this should create `pysqlite-2.8.3-cp27-cp27m-macosx_*_x86_64.whl` under `./dist/`.
 

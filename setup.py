@@ -187,7 +187,7 @@ def get_setup_args():
     py_modules = ["sqlite"]
     setup_args = dict(
             name = "pysqlite",
-            version = PYSQLITE_VERSION,
+            version = "2.8.3.1",
             description = "DB-API 2.0 interface for SQLite 3.x",
             long_description=long_description,
             author = "Gerhard Haering",
